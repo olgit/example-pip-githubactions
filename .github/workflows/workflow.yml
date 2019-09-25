@@ -14,5 +14,4 @@ jobs:
       with:
         python-version: 2.7
     - name: Install dependencies
-      run: |
-        python setup.py install
+      run: python setup.py install
