@@ -1,16 +1,19 @@
-# Black Duck CoPilot pip/Travis CI Example
+# Black Duck CoPilot Gradle/GitHub CI Example
 
-[![Build Status](https://travis-ci.org/BlackDuckCoPilot/example-pip-travis.svg?branch=master)](https://travis-ci.org/BlackDuckCoPilot/example-pip-travis) [![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/repos/BlackDuckCoPilot/example-pip-travis/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/repos/BlackDuckCoPilot/example-pip-travis/public/master)
+[![Actions](https://github.com/BlackDuckCoPilot/example-pip-githubactions/workflows/Java%20CI/badge.svg)](https://github.com/BlackDuckCoPilot/example-pip-githubactions/actions?workflow=Java+CI) [![Black Duck Security Risk](https://copilot-valid.blackducksoftware.com/github/repos/BlackDuckCoPilot/example-pip-githubactions/branches/validation/badge-risk.svg)](https://copilot-valid.blackducksoftware.com/github/repos/BlackDuckCoPilot/example-pip-githubactions/branches/validation)
 
-Shows a working setup for using Black Duck CoPilot to analyze the risk of project dependencies
+Shows a working setup for using the Black Duck CoPilot integration to analyze the risk of project dependencies
 
 ## GitHub CI/CD Setup
 
-TODO
-
-The `.travis.yml` file has been modified to upload the generated data to Black Duck CoPilot:
+The `.github/workflows/workflow.yml` file has been modified to upload generated dependency data to Black Duck CoPilot:
 
 ```yaml
-after_success:
-  - bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)
+- name: Set up Java (CoPilot)
+  uses: actions/setup-java@v1
+  with:
+    java-version: 1.8
+- name: Upload to CoPilot
+      if: github.event_name == 'push' || github.event_name == 'pull_request'
+      run: bash <(curl -s https://copilot-valid.blackducksoftware.com/ci/githubactions/scripts/upload)
 ```
